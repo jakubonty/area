@@ -71,7 +71,7 @@ class String
 
   def to_zip_with_city
     parameterized = self.parameterize
-    @zip_codes = Area.zip_codes.find_all {|row| row[1] && row[1].parameterize.include?(parameterized) }.map {|a| a }
+    @zip_codes = Area.zip_codes.find_all {|row| row[1] && (((p = row[1].parameterize) && (p.start_with?(parameterized)) || (p2 = row[2].parameterize) && p2.start_with?(parameterized))) }.map {|a| a }
   end
 
   # Public: Convert a zipcode to its GMT offset.
